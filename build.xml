@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2013, Zend Technologies Ltd.
+
+ Permission to use, copy, modify, and/or distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-->
+
+<project name="EclipseDiffTest" default="main" basedir=".">
+	<property environment="env" />
+	<condition property="maven.repo" value=".repository" else="${user.home}/.m2/repository">
+		<isset property="env.JENKINS_HOME" />
+	</condition>
+	
+	<taskdef 
+		name="eclipsediff" 
+		classname="com.zend.php.releng.eclipsediff.taskdefs.EclipseDiffTask" 
+		classpath="./target/classes;${maven.repo}/xmlunit/xmlunit/1.4/xmlunit-1.4.jar" />
+
+	<target name="main" depends="extract">
+		<eclipsediff 
+			older="older/ZendStudio/" 
+			newer="newer/ZendStudio/" />
+	</target>
+	
+	<target name="extract" depends="clean,extract-older-build,extract-newer-build" />
+	
+	<target name="extract-older-build" depends="extract-older-build-zip,extract-older-build-gz" />
+	<target name="extract-newer-build" depends="extract-newer-build-zip,extract-newer-build-gz" />
+	
+	<target name="extract-older-build-zip" depends="check-older-build-zip" if="older.build.zip">
+		<unzip src="${env.OLDER_BUILD_PATH}" dest="older" />
+	</target>
+	
+	<target name="extract-newer-build-zip" depends="check-newer-build-zip" if="newer.build.zip">
+		<unzip src="${env.NEWER_BUILD_PATH}" dest="newer" />
+	</target>
+	
+	<target name="extract-older-build-gz" depends="check-older-build-gz" if="older.build.gz">
+		<gunzip src="${env.OLDER_BUILD_PATH}" dest="older.tar" />
+		<untar src="older.tar" dest="older" />
+	</target>
+	
+	<target name="extract-newer-build-gz" depends="check-newer-build-gz" if="newer.build.gz">
+		<gunzip src="${env.NEWER_BUILD_PATH}" dest="newer.tar" />
+		<untar src="newer.tar" dest="newer" />
+	</target>
+	
+	<target name="check-older-build-zip">
+		<condition property="older.build.zip">
+			<matches pattern="\.zip$" string="${env.OLDER_BUILD_PATH}"/>
+		</condition>
+	</target>
+	
+	<target name="check-newer-build-zip">
+		<condition property="newer.build.zip">
+			<matches pattern="\.zip$" string="${env.NEWER_BUILD_PATH}"/>
+		</condition>
+	</target>
+
+	<target name="check-older-build-gz">
+		<condition property="older.build.gz">
+			<matches pattern="\.gz$" string="${env.OLDER_BUILD_PATH}"/>
+		</condition>
+	</target>
+
+	<target name="check-newer-build-gz">
+		<condition property="newer.build.gz">
+			<matches pattern="\.gz$" string="${env.NEWER_BUILD_PATH}"/>
+		</condition>
+	</target>
+	
+	<target name="clean">
+		<delete dir="older" />
+		<delete dir="newer" />
+		<delete file="older.tar" />
+		<delete file="newer.tar" />
+	</target>
+</project>

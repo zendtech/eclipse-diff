@@ -1,0 +1,46 @@
+/*****************************************************************************
+ * Copyright (c) 2013, Zend Technologies Ltd.
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ ****************************************************************************/
+package com.zend.php.releng.eclipsediff;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.zend.php.releng.eclipsediff.report.Report;
+
+public abstract class AbstractDiff {
+
+	protected static final String[] SKIP = { "artifacts.xml", "ZEND.SF",
+			"ZEND.RSA", "pom.properties", "p2", "configuration" };
+
+	protected static final List<String> SKIP_LIST = Arrays.asList(SKIP);
+
+	protected String originalPath;
+	protected String otherPath;
+
+	protected AbstractDiff(String originalPath, String otherPath) {
+		this.originalPath = originalPath;
+		this.otherPath = otherPath;
+
+		if (originalPath == null)
+			throw new NullPointerException("originalPath is null");
+
+		if (otherPath == null)
+			throw new NullPointerException("otherPath is null");
+	}
+
+	public abstract void execute(Report report) throws Exception;
+
+}
