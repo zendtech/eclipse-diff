@@ -36,23 +36,23 @@
 		<name>Zend Technologies Ltd.</name>
 		<url>http://www.zend.com</url>
 	</organization>
-  <issueManagement>
-    <url>https://github.com/zendtech/eclipse-diff/issues</url>
-    <system>GitHub Issues</system>
-  </issueManagement>
-  <inceptionYear>2013</inceptionYear>
-  <scm>
-    <connection>scm:git:https://github.com/zendtech/eclipse-diff.git</connection>
-    <tag>HEAD</tag>
-    <developerConnection>scm:git:git@github.com:zendtech/eclipse-diff.git</developerConnection>
-    <url>https://github.com/zendtech/eclipse-diff</url>
-  </scm>
-  <licenses>
-    <license>
-      <name>ISC License</name>
-      <url>http://opensource.org/licenses/ISC</url>
-      <distribution>repo, manual</distribution>
-      <comments>Permissive OSS license</comments>
-    </license>
-  </licenses>
+	<issueManagement>
+		<url>https://github.com/zendtech/eclipse-diff/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	<inceptionYear>2013</inceptionYear>
+	<scm>
+		<connection>scm:git:https://github.com/zendtech/eclipse-diff.git</connection>
+		<tag>HEAD</tag>
+		<developerConnection>scm:git:git@github.com:zendtech/eclipse-diff.git</developerConnection>
+		<url>https://github.com/zendtech/eclipse-diff</url>
+	</scm>
+	<licenses>
+		<license>
+			<name>ISC License</name>
+			<url>http://opensource.org/licenses/ISC</url>
+			<distribution>repo, manual</distribution>
+			<comments>Permissive OSS license</comments>
+		</license>
+	</licenses>
 </project>
