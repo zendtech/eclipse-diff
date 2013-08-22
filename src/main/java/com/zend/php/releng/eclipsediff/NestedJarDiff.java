@@ -50,6 +50,7 @@ public class NestedJarDiff extends AbstractDiff {
 
 			if (!equal(e1, e2)) {
 				report.add(MODIFIED, originalPath);
+				return;
 			}
 		}
 
