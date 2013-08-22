@@ -20,8 +20,11 @@ import static com.zend.php.releng.eclipsediff.utils.JarUtils.equal;
 import static com.zend.php.releng.eclipsediff.utils.JarUtils.getJarEntryPath;
 import static com.zend.php.releng.eclipsediff.utils.JarUtils.isJar;
 
+import java.io.IOException;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import org.apache.commons.io.IOUtils;
 
 import com.zend.php.releng.eclipsediff.report.Report;
 
@@ -45,13 +48,38 @@ public class JarEntryDiff extends AbstractDiff {
 
 	@Override
 	public void execute(Report report) throws Exception {
-		if (!equal(original, other)) {
+		if (!equal(original, other) && !equalIgnoringClassVersion()) {
 			if (isJar(original)) {
 				new NestedJarDiff(originalJar, original, otherJar, other)
 						.execute(report);
 			} else {
 				report.add(MODIFIED, originalPath);
 			}
+		}
+	}
+
+	private boolean equalIgnoringClassVersion() throws IOException {
+		if (original == null) {
+			// if both are null then they are equal
+			return other == null;
+		} else if (other == null) {
+			// other is not null, so they are not equal
+			return false;
+		} else {
+			byte[] originalBytes = IOUtils.toByteArray(originalJar
+					.getInputStream(original));
+			byte[] otherBytes = IOUtils.toByteArray(otherJar
+					.getInputStream(other));
+
+			if (originalBytes.length != otherBytes.length)
+				return false;
+
+			for (int i = 0; i < originalBytes.length; i++) {
+				if (i != 7 && originalBytes[i] != otherBytes[i]) {
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 
