@@ -30,6 +30,9 @@ import com.zend.php.releng.eclipsediff.report.Report;
 
 public class ManifestDiff extends AbstractDiff {
 
+	protected static final String[] IGNORED_HEADERS = { "Bundle-Version",
+			"Built-By", "Created-By", "Build-Jdk", "Archiver-Version" };
+
 	private Manifest originalManifest;
 	private Manifest otherManifest;
 
@@ -53,9 +56,11 @@ public class ManifestDiff extends AbstractDiff {
 		Attributes attr1 = originalManifest.getMainAttributes();
 		Attributes attr2 = otherManifest.getMainAttributes();
 
-		// ignore Bundle-Version when comparing the manifests
-		attr1.remove(new Attributes.Name("Bundle-Version"));
-		attr2.remove(new Attributes.Name("Bundle-Version"));
+		// ignore some headers when comparing the manifests
+		for (String header : IGNORED_HEADERS) {
+			attr1.remove(new Attributes.Name(header));
+			attr2.remove(new Attributes.Name(header));
+		}
 
 		if (!equal(attr1, attr2)) {
 			report.add(MODIFIED, originalPath);
