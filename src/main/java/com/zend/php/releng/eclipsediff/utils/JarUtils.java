@@ -25,7 +25,16 @@ public class JarUtils {
 	public static final String JAR_EXT = ".jar";
 
 	public static boolean equal(ZipEntry e1, ZipEntry e2) {
-		return e1.getCrc() == e2.getCrc();
+		if (e1 == null) {
+			// if both are null then they are equal
+			return e2 == null;
+		} else if (e2 == null) {
+			// e1 is not null, so they are not equal
+			return false;
+		} else {
+			// both are not null, so compare their checksums
+			return e1.getCrc() == e2.getCrc();
+		}
 	}
 
 	public static String getJarEntryPath(JarFile jar, JarEntry entry) {
