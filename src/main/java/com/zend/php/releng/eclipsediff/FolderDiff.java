@@ -18,6 +18,7 @@ package com.zend.php.releng.eclipsediff;
 import static com.zend.php.releng.eclipsediff.report.ReportEntryType.ADDED;
 import static com.zend.php.releng.eclipsediff.report.ReportEntryType.REMOVED;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.getId;
+import static com.zend.php.releng.eclipsediff.utils.FileUtils.hasExtension;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.isFeature;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.isPlugin;
 
@@ -34,7 +35,8 @@ public class FolderDiff extends AbstractDiff {
 	protected static FilenameFilter FILTER = new FilenameFilter() {
 		@Override
 		public boolean accept(File dir, String name) {
-			return !SKIP_LIST.contains(name);
+			return !SKIP_LIST.contains(name)
+					&& !hasExtension(name, IGNORE_FILE_EXT);
 		}
 	};
 

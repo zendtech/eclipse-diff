@@ -17,6 +17,7 @@ package com.zend.php.releng.eclipsediff;
 
 import static com.zend.php.releng.eclipsediff.report.ReportEntryType.ADDED;
 import static com.zend.php.releng.eclipsediff.report.ReportEntryType.REMOVED;
+import static com.zend.php.releng.eclipsediff.utils.FileUtils.hasExtension;
 import static com.zend.php.releng.eclipsediff.utils.JarUtils.getJarEntryFileName;
 import static com.zend.php.releng.eclipsediff.utils.JarUtils.getJarEntryPath;
 
@@ -71,6 +72,7 @@ public class JarDiff extends AbstractDiff {
 		while (entries.hasMoreElements()) {
 			JarEntry entry = entries.nextElement();
 			if (!SKIP_LIST.contains(getJarEntryFileName(entry))
+					&& !hasExtension(entry.getName(), IGNORE_FILE_EXT)
 					&& !entry.getName().endsWith(JarFile.MANIFEST_NAME)) {
 				result.add(entry);
 			}

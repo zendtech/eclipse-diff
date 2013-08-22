@@ -22,10 +22,12 @@ import com.zend.php.releng.eclipsediff.report.Report;
 
 public abstract class AbstractDiff {
 
-	protected static final String[] SKIP = { "artifacts.xml", "ZEND.SF",
-			"ZEND.RSA", "pom.properties", "p2", "configuration" };
+	protected static final String[] SKIP = { "artifacts.xml", "pom.properties",
+			"p2", "configuration" };
 
 	protected static final List<String> SKIP_LIST = Arrays.asList(SKIP);
+
+	protected static final String[] IGNORE_FILE_EXT = { "SF", "RSA" };
 
 	protected String originalPath;
 	protected String otherPath;

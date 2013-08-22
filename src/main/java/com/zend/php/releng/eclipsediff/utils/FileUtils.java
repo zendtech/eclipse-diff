@@ -57,7 +57,7 @@ public class FileUtils {
 	}
 
 	public static boolean isZip(File file) {
-		return file.getName().toLowerCase().endsWith(".zip");
+		return hasExtension(file, ".zip");
 	}
 
 	public static String getId(File file) {
@@ -68,6 +68,23 @@ public class FileUtils {
 			jarId = name.substring(0, index);
 		}
 		return jarId;
+	}
+
+	public static boolean hasExtension(File file, String extension) {
+		return hasExtension(file.getName(), extension);
+	}
+
+	public static boolean hasExtension(String name, String extension) {
+		return name.toLowerCase().endsWith("." + extension.toLowerCase());
+	}
+
+	public static boolean hasExtension(String name, String[] extensions) {
+		for (String extension : extensions) {
+			if (hasExtension(name, extension)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

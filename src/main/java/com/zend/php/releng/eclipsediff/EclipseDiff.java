@@ -68,14 +68,17 @@ public class EclipseDiff extends FolderDiff {
 		for (String name : SKIP) {
 			System.out.println("\t" + name);
 		}
+		for (String name : IGNORE_FILE_EXT) {
+			System.out.println("\t*." + name);
+		}
 		System.out.println(HORIZONTAL_LINE);
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		File root1 = new File(
-				"/home/raev/Downloads/ZendStudio-10.1.0-official/");
-		File root2 = new File("/home/raev/Downloads/ZendStudio-10.1.1-714/");
+		File root1 = new File("/home/raev/Downloads/ZendStudio-10.1.0-715/");
+		File root2 = new File(
+				"/home/raev/git/studio-core/studio-product/target/products/ZendStudio");
 
 		new EclipseDiff(root1, root2).execute();
 	}

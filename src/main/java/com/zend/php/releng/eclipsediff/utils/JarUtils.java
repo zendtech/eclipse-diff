@@ -15,6 +15,8 @@
  ****************************************************************************/
 package com.zend.php.releng.eclipsediff.utils;
 
+import static com.zend.php.releng.eclipsediff.utils.FileUtils.hasExtension;
+
 import java.io.File;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -22,7 +24,7 @@ import java.util.zip.ZipEntry;
 
 public class JarUtils {
 
-	public static final String JAR_EXT = ".jar";
+	public static final String JAR_EXT = "jar";
 
 	public static boolean equal(ZipEntry e1, ZipEntry e2) {
 		if (e1 == null) {
@@ -63,6 +65,6 @@ public class JarUtils {
 	}
 
 	private static boolean isJar(String name) {
-		return name.toLowerCase().endsWith(JAR_EXT);
+		return hasExtension(name, JAR_EXT);
 	}
 }
