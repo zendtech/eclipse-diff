@@ -57,20 +57,31 @@ public class FileUtils {
 	 *         <code>false</code> - otherwise.
 	 */
 	public static boolean isPlugin(File file) {
+		if (file == null)
+			return false;
+
 		File parent = file.getParentFile();
+
 		return (isJar(file) || file.isDirectory()) && parent != null
 				&& "plugins".equals(parent.getName())
-				&& !hasPluginsParent(parent);
+				&& !hasParentWithName(parent, "plugins");
 	}
 
-	private static boolean hasPluginsParent(File file) {
+	public static boolean hasParentWithName(File file, String parentName) {
+		if (file == null)
+			return false;
+
+		if (parentName == null)
+			throw new IllegalArgumentException("parentName is null");
+
 		File parent = file.getParentFile();
+
 		if (parent == null) {
 			return false;
-		} else if ("plugins".equals(parent.getName())) {
+		} else if (parentName.equals(parent.getName())) {
 			return true;
 		} else {
-			return hasPluginsParent(parent);
+			return hasParentWithName(parent, parentName);
 		}
 	}
 
