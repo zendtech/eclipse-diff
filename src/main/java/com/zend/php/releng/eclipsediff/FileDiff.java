@@ -19,8 +19,8 @@ import static com.zend.php.releng.eclipsediff.report.ReportEntryType.MODIFIED;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.crc32;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.isFeatureXml;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.isManifest;
-import static com.zend.php.releng.eclipsediff.utils.FileUtils.isPlugin;
 import static com.zend.php.releng.eclipsediff.utils.FileUtils.isZip;
+import static com.zend.php.releng.eclipsediff.utils.JarUtils.isJar;
 
 import java.io.File;
 
@@ -51,7 +51,7 @@ public class FileDiff extends AbstractDiff {
 			new ManifestDiff(original, other).execute(report);
 		} else if (isFeatureXml(original)) {
 			new FeatureXmlDiff(original, other).execute(report);
-		} else if (isPlugin(original)) {
+		} else if (isJar(original)) {
 			new JarDiff(original, other).execute(report);
 		} else if (isZip(original)) {
 			new ZipDiff(original, other).execute(report);
