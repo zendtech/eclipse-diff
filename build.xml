@@ -27,8 +27,8 @@
 
 	<target name="main" depends="extract">
 		<eclipsediff 
-			older="older/ZendStudio/" 
-			newer="newer/ZendStudio/" />
+			older="older/" 
+			newer="newer/" />
 	</target>
 	
 	<target name="extract" depends="clean,extract-older-build,extract-newer-build" />
