@@ -30,6 +30,16 @@
 			<artifactId>xmlunit</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymockclassextension</artifactId>
+			<version>3.2</version>
+		</dependency>
 	</dependencies>
 	<url>https://github.com/zendtech/eclipse-diff</url>
 	<organization>

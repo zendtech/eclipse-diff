@@ -61,7 +61,7 @@ public class JarUtils {
 	}
 
 	public static boolean isJar(File file) {
-		return isJar(file.getName());
+		return file.isFile() && isJar(file.getName());
 	}
 
 	private static boolean isJar(String name) {

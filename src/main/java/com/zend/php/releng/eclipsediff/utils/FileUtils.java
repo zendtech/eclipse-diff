@@ -43,9 +43,35 @@ public class FileUtils {
 		return folder.isDirectory() && folder.getParent().endsWith("features");
 	}
 
+	/**
+	 * Checks if the provided file system resource is an Eclipse plugin.
+	 * 
+	 * <p>
+	 * Eclipse plugins are the directories and the JAR files that are directly
+	 * under the "plugins" directory of the Eclipse installation.
+	 * </p>
+	 * 
+	 * @param file
+	 *            the file or directory to check
+	 * @return <code>true</code> if the file or directory is an Eclipse plugin,
+	 *         <code>false</code> - otherwise.
+	 */
 	public static boolean isPlugin(File file) {
-		return file.isFile() && isJar(file) || file.isDirectory()
-				&& file.getParent().endsWith("plugins");
+		File parent = file.getParentFile();
+		return (isJar(file) || file.isDirectory()) && parent != null
+				&& "plugins".equals(parent.getName())
+				&& !hasPluginsParent(parent);
+	}
+
+	private static boolean hasPluginsParent(File file) {
+		File parent = file.getParentFile();
+		if (parent == null) {
+			return false;
+		} else if ("plugins".equals(parent.getName())) {
+			return true;
+		} else {
+			return hasPluginsParent(parent);
+		}
 	}
 
 	public static boolean isManifest(File file) {
@@ -57,7 +83,7 @@ public class FileUtils {
 	}
 
 	public static boolean isZip(File file) {
-		return hasExtension(file, ".zip");
+		return file.isFile() && hasExtension(file, ".zip");
 	}
 
 	public static String getId(File file) {
