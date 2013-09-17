@@ -111,8 +111,41 @@ public class FileUtils {
 		return hasExtension(file.getName(), extension);
 	}
 
-	public static boolean hasExtension(String name, String extension) {
-		return name.toLowerCase().endsWith("." + extension.toLowerCase());
+	/**
+	 * Checks if the provided file name has the given extension.
+	 * 
+	 * <p>
+	 * The check is case-insensitive.
+	 * </p>
+	 * 
+	 * <p>
+	 * If <code>extension</code> parameter is <code>null</code> then it is
+	 * treated as empty string.
+	 * </p>
+	 * 
+	 * @param fileName
+	 *            the file name to check
+	 * @param extension
+	 *            the extension for the check
+	 * @return <code>true</code> if the <code>extension</code> argument matches
+	 *         the extension of the provided file name, <code>false</code> -
+	 *         otherwise.
+	 */
+	public static boolean hasExtension(String fileName, String extension) {
+		if (fileName == null)
+			return false;
+
+		int dotIndex = fileName.lastIndexOf('.');
+		if (dotIndex == -1) {
+			return extension == null || extension.isEmpty();
+		}
+
+		String ext = fileName.substring(dotIndex + 1);
+		if (ext.isEmpty()) {
+			return extension == null || extension.isEmpty();
+		} else {
+			return ext.equalsIgnoreCase(extension);
+		}
 	}
 
 	public static boolean hasExtension(String name, String[] extensions) {
