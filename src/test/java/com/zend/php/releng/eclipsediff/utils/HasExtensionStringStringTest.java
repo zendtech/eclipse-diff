@@ -80,11 +80,11 @@ public class HasExtensionStringStringTest {
 	}
 
 	/**
-	 * File "test.txt" has not a "doc" extension.
+	 * File "test.txt" has not an "atxt" extension.
 	 */
 	@Test
 	public void testHasExtensionStringString_TestTxtFile_DocExtension() {
-		assertFalse(FileUtils.hasExtension("text.txt", "doc"));
+		assertFalse(FileUtils.hasExtension("text.txt", "atxt"));
 	}
 
 }

@@ -138,4 +138,22 @@ public class Mock {
 		return mock;
 	}
 
+	public static File testFile() {
+		File mock = createMock(File.class);
+		expect(mock.isFile()).andReturn(true);
+		expect(mock.isDirectory()).andReturn(false);
+		expect(mock.getName()).andReturn("test");
+		replay(mock);
+		return mock;
+	}
+
+	public static File testDotFile() {
+		File mock = createMock(File.class);
+		expect(mock.isFile()).andReturn(true);
+		expect(mock.isDirectory()).andReturn(false);
+		expect(mock.getName()).andReturn("test.");
+		replay(mock);
+		return mock;
+	}
+
 }

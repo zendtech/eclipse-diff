@@ -107,7 +107,42 @@ public class FileUtils {
 		return jarId;
 	}
 
+	/**
+	 * Checks if the provided file has the given extension.
+	 * 
+	 * <p>
+	 * The check is case-insensitive.
+	 * </p>
+	 * 
+	 * <p>
+	 * If <code>extension</code> parameter is <code>null</code> then it is
+	 * treated as empty string.
+	 * </p>
+	 * 
+	 * <p>
+	 * This method calls {@link #hasExtension(String, String)} with the name of
+	 * the provided file.
+	 * </p>
+	 * 
+	 * @param file
+	 *            the file to check
+	 * @param extension
+	 *            the extension to test
+	 * @return <code>true</code> if the <code>extension</code> argument matches
+	 *         the extension of the provided file, <code>false</code> -
+	 *         otherwise.
+	 * @throws IllegalArgumentException
+	 *             if the provided file is a directory
+	 * 
+	 * @see #hasExtension(String, String)
+	 */
 	public static boolean hasExtension(File file, String extension) {
+		if (file == null)
+			return false;
+
+		if (!file.isFile())
+			throw new IllegalArgumentException("file is directory");
+
 		return hasExtension(file.getName(), extension);
 	}
 
