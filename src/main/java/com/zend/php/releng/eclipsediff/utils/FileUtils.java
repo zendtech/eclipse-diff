@@ -126,7 +126,7 @@ public class FileUtils {
 	 * @param fileName
 	 *            the file name to check
 	 * @param extension
-	 *            the extension for the check
+	 *            the extension to test
 	 * @return <code>true</code> if the <code>extension</code> argument matches
 	 *         the extension of the provided file name, <code>false</code> -
 	 *         otherwise.
@@ -148,12 +148,44 @@ public class FileUtils {
 		}
 	}
 
-	public static boolean hasExtension(String name, String[] extensions) {
+	/**
+	 * Checks if the provided file name has any of the given extensions.
+	 * 
+	 * <p>
+	 * The check is case-insensitive.
+	 * </p>
+	 * 
+	 * <p>
+	 * If <code>extensions</code> array is <code>null</code> then it is treated
+	 * as a single extension of empty string.
+	 * </p>
+	 * 
+	 * <p>
+	 * This method calls {@link #hasExtension(String, String)} for each of the
+	 * items in the <code>extensions</code> array.
+	 * </p>
+	 * 
+	 * @param fileName
+	 *            the file name to check
+	 * @param extensions
+	 *            the list of extension to test
+	 * @return <code>true</code> if the extension of the provided file name
+	 *         matches at least one of items in the <code>extensions</code>
+	 *         array, <code>false</code> - otherwise.
+	 * 
+	 * @see #hasExtension(String, String)
+	 */
+	public static boolean hasExtension(String fileName, String[] extensions) {
+		if (extensions == null) {
+			extensions = new String[] { null };
+		}
+
 		for (String extension : extensions) {
-			if (hasExtension(name, extension)) {
+			if (hasExtension(fileName, extension)) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
