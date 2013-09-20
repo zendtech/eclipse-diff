@@ -92,7 +92,7 @@ public class HasExtensionFileStringTest {
 	 * File "test.txt" has not an "atxt" extension.
 	 */
 	@Test
-	public void testHasExtensionFileString_TestTxtFile_DocExtension() {
+	public void testHasExtensionFileString_TestTxtFile_AtxtExtension() {
 		File mock = Mock.textFileInsidePluginsDir();
 		assertFalse(FileUtils.hasExtension(mock, "atxt"));
 	}

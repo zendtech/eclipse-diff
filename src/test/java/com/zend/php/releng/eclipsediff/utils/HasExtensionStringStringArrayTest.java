@@ -83,7 +83,7 @@ public class HasExtensionStringStringArrayTest {
 	 * File "test.txt" has not an "atxt" extension.
 	 */
 	@Test
-	public void testHasExtensionStringStringArray_TestTxtFile_DocExtension() {
+	public void testHasExtensionStringStringArray_TestTxtFile_AtxtExtension() {
 		assertFalse(FileUtils.hasExtension("text.txt", new String[] { "atxt" }));
 	}
 
@@ -91,7 +91,7 @@ public class HasExtensionStringStringArrayTest {
 	 * File "test.txt" has an extension that matches "txt" or "doc".
 	 */
 	@Test
-	public void testHasExtensionStringStringArray_TestTxtFile_TxtDocExtensions() {
+	public void testHasExtensionStringStringArray_TestTxtFile_TxtAtxtExtensions() {
 		assertTrue(FileUtils.hasExtension("text.txt", new String[] { "txt",
 				"doc" }));
 	}
@@ -100,7 +100,7 @@ public class HasExtensionStringStringArrayTest {
 	 * File "test.txt" has an extension that does not match "atxt" and "doc".
 	 */
 	@Test
-	public void testHasExtensionStringStringArray_TestTxtFile_JpgDocExtensions() {
+	public void testHasExtensionStringStringArray_TestTxtFile_AtxtDocExtensions() {
 		assertFalse(FileUtils.hasExtension("text.txt", new String[] { "atxt",
 				"doc" }));
 	}
