@@ -30,7 +30,7 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestFile_NullExtension() {
-		File mock = Mock.testFile();
+		File mock = Mock.fileWithName("test");
 		assertTrue(FileUtils.hasExtension(mock, null));
 	}
 
@@ -39,7 +39,7 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestDotFile_NullExtension() {
-		File mock = Mock.testDotFile();
+		File mock = Mock.fileWithName("test.");
 		assertTrue(FileUtils.hasExtension(mock, null));
 	}
 
@@ -57,7 +57,7 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestFile_EmptyExtension() {
-		File mock = Mock.testFile();
+		File mock = Mock.fileWithName("test");
 		assertTrue(FileUtils.hasExtension(mock, ""));
 	}
 
@@ -66,7 +66,7 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestDotFile_EmptyExtension() {
-		File mock = Mock.testDotFile();
+		File mock = Mock.fileWithName("test.");
 		assertTrue(FileUtils.hasExtension(mock, ""));
 	}
 
@@ -75,7 +75,7 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestTxtFile_EmptyExtension() {
-		File mock = Mock.textFileInsidePluginsDir();
+		File mock = Mock.fileWithName("test.txt");
 		assertFalse(FileUtils.hasExtension(mock, ""));
 	}
 
@@ -84,7 +84,25 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestTxtFile_TxtExtension() {
-		File mock = Mock.textFileInsidePluginsDir();
+		File mock = Mock.fileWithName("test.txt");
+		assertTrue(FileUtils.hasExtension(mock, "txt"));
+	}
+
+	/**
+	 * File "test.txt" has a "TXT" extension.
+	 */
+	@Test
+	public void testHasExtensionFileString_TestTxtFile_TXTExtension() {
+		File mock = Mock.fileWithName("test.txt");
+		assertTrue(FileUtils.hasExtension(mock, "TXT"));
+	}
+
+	/**
+	 * File "test.TXT" has a "txt" extension.
+	 */
+	@Test
+	public void testHasExtensionFileString_TestTXTFile_TxtExtension() {
+		File mock = Mock.fileWithName("test.TXT");
 		assertTrue(FileUtils.hasExtension(mock, "txt"));
 	}
 
@@ -93,17 +111,17 @@ public class HasExtensionFileStringTest {
 	 */
 	@Test
 	public void testHasExtensionFileString_TestTxtFile_AtxtExtension() {
-		File mock = Mock.textFileInsidePluginsDir();
+		File mock = Mock.fileWithName("test.txt");
 		assertFalse(FileUtils.hasExtension(mock, "atxt"));
 	}
 
 	/**
-	 * Passing directory throws an <code>IllegalArgumentException</code>.
+	 * Directory "test.txt" has not a "txt" extension.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testHasExtensionFileString_Directory() {
-		File mock = Mock.rootDir();
-		FileUtils.hasExtension(mock, null);
+		File mock = Mock.dirWithName("test.txt");
+		assertFalse(FileUtils.hasExtension(mock, "txt"));
 	}
 
 }

@@ -80,6 +80,22 @@ public class HasExtensionStringStringArrayTest {
 	}
 
 	/**
+	 * File "test.txt" has a "TXT" extension.
+	 */
+	@Test
+	public void testHasExtensionStringStringArray_TestTxtFile_TXTExtension() {
+		assertTrue(FileUtils.hasExtension("test.txt", new String[] { "TXT" }));
+	}
+
+	/**
+	 * File "test.TXT" has a "txt" extension.
+	 */
+	@Test
+	public void testHasExtensionStringStringArray_TestTXTFile_TxtExtension() {
+		assertTrue(FileUtils.hasExtension("test.TXT", new String[] { "txt" }));
+	}
+
+	/**
 	 * File "test.txt" has not an "atxt" extension.
 	 */
 	@Test

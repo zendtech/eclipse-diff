@@ -93,8 +93,16 @@ public class FileUtils {
 		return "feature.xml".equals(file.getName());
 	}
 
+	/**
+	 * Checks if the provided file system resource is a ZIP file.
+	 * 
+	 * @param file
+	 *            the file to check
+	 * @return <code>true</code> if the file has "zip" extension,
+	 *         <code>false</code> - otherwise.
+	 */
 	public static boolean isZip(File file) {
-		return file.isFile() && hasExtension(file, ".zip");
+		return hasExtension(file, "zip");
 	}
 
 	public static String getId(File file) {
@@ -120,6 +128,11 @@ public class FileUtils {
 	 * </p>
 	 * 
 	 * <p>
+	 * If the provided file system resource is directory, then this method
+	 * returns <code>false</code>.
+	 * </p>
+	 * 
+	 * <p>
 	 * This method calls {@link #hasExtension(String, String)} with the name of
 	 * the provided file.
 	 * </p>
@@ -131,8 +144,6 @@ public class FileUtils {
 	 * @return <code>true</code> if the <code>extension</code> argument matches
 	 *         the extension of the provided file, <code>false</code> -
 	 *         otherwise.
-	 * @throws IllegalArgumentException
-	 *             if the provided file is a directory
 	 * 
 	 * @see #hasExtension(String, String)
 	 */
@@ -141,7 +152,7 @@ public class FileUtils {
 			return false;
 
 		if (!file.isFile())
-			throw new IllegalArgumentException("file is directory");
+			return false;
 
 		return hasExtension(file.getName(), extension);
 	}
