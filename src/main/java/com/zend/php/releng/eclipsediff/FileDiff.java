@@ -23,6 +23,7 @@ import static com.zend.php.releng.eclipsediff.utils.FileUtils.isZip;
 import static com.zend.php.releng.eclipsediff.utils.JarUtils.isJar;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.zend.php.releng.eclipsediff.report.Report;
 
@@ -47,19 +48,28 @@ public class FileDiff extends AbstractDiff {
 
 	@Override
 	public void execute(Report report) throws Exception {
-		if (isManifest(original)) {
-			new ManifestDiff(original, other).execute(report);
-		} else if (isFeatureXml(original)) {
-			new FeatureXmlDiff(original, other).execute(report);
-		} else if (isJar(original)) {
-			new JarDiff(original, other).execute(report);
-		} else if (isZip(original)) {
-			new ZipDiff(original, other).execute(report);
-		} else {
-			if (original.length() != other.length()
-					|| crc32(original) != crc32(other)) {
-				report.add(MODIFIED, originalPath);
+		try {
+			if (isManifest(original)) {
+				new ManifestDiff(original, other).execute(report);
+			} else if (isFeatureXml(original)) {
+				new FeatureXmlDiff(original, other).execute(report);
+			} else if (isJar(original)) {
+				new JarDiff(original, other).execute(report);
+			} else if (isZip(original)) {
+				new ZipDiff(original, other).execute(report);
+			} else {
+				compareChecksums(report);
 			}
+		} catch (Exception e) {
+			// in case of error - fall back to comparing checksums
+			compareChecksums(report);
+		}
+	}
+
+	private void compareChecksums(Report report) throws IOException {
+		if (original.length() != other.length()
+				|| crc32(original) != crc32(other)) {
+			report.add(MODIFIED, originalPath);
 		}
 	}
 
